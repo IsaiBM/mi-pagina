@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Neurobiología del Estrés</title>
+
+<style>
+  body{
+    margin:0;
+    font-family:Inter,system-ui,Arial;
+    background:
+      url('FondoEstres.png') no-repeat center center fixed,
+      linear-gradient(180deg,#ecfdf5,#d1fae5);
+    background-size:cover;
+    color:#064e3b;
+  }
+
+  .container{
+    max-width:1100px;margin:auto;padding:20px;
+    display:flex;flex-direction:column;gap:20px;
+    background:rgba(255,255,255,0.35);
+    border-radius:18px;
+    backdrop-filter:blur(6px);
+  }
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    background:rgba(255,255,255,0.45);
+    padding:12px 18px;border-radius:14px;
+    backdrop-filter:blur(5px);
+  }
+
+  .logo{
+    background:linear-gradient(135deg,#10b981,#14b8a6);
+    width:50px;height:50px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700
+  }
+
+  .section{
+    background:rgba(255,255,255,0.45);
+    padding:18px;border-radius:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.15);
+    backdrop-filter:blur(5px);
+  }
+
+  .cloud-title{
+    display:inline-block;padding:6px 12px;
+    border-radius:999px;background:rgba(209,250,229,0.6);
+    font-weight:700
+  }
+
+  /* concepto */
+  .concepto{
+    display:flex;align-items:center;gap:14px;cursor:pointer
+  }
+
+  .concepto img{
+    width:100px;height:100px;
+    border-radius:50%;object-fit:cover;
+    border:3px solid #10b981;
+    background:#fff;
+  }
+
+  .bubble{
+    background:rgba(187,247,208,0.70);
+    padding:12px;border-radius:14px;display:none;
+    backdrop-filter:blur(3px);
+  }
+
+
+
+  /* FLIP CARDS — EXACTO COMO TU EJEMPLO, PERO ADAPTADO */
+.flip-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;     /* ← ESTE px ES LO QUE FALTABA */
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flip{
+  flex: 0 1 calc(33.33% - 20px);
+  min-width: 240px;
+  max-width: 280px;
+  height: 200px;
+  perspective: 1000px;
+  position: relative;
+}
+
+  .inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .6s;
+    transform-style:preserve-3d;
+  }
+
+  .flip:hover .inner{
+    transform:rotateY(180deg);
+  }
+
+  .front,.back{
+    position:absolute;
+    width:100%;height:100%;
+    backface-visibility:hidden;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    padding:14px;text-align:center;
+    font-size:15px;line-height:1.4;
+
+    /* transparencia */
+    background:rgba(255,255,255,0.55);
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    backdrop-filter:blur(4px);
+  }
+
+  .front{
+    background:rgba(110,231,183,0.65);
+    color:#064e3b;font-weight:700;
+  }
+
+  .back{
+    background:rgba(16,185,129,0.75);
+    color:#fff;
+    transform:rotateY(180deg);
+  }
+
+
+  /* detalles */
+details{
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+}
+
+
+  /* videos */
+  .videos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:14px
+  }
+  video{width:100%;border-radius:12px}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div class="logo">NE</div>
+    <div>
+      <h1>Neurobiología del Estrés</h1>
+      <small>Interactivo y visual</small>
+    </div>
+  </div>
+
+<a href="inicio2.html" style="color:var(--accent-green)">Menú principal</a>
+
+<a href="Estres3.html" style="color:var(--accent-green)">Mas información</a>
+
+</header>
+
+<!-- CONCEPTO -->
+<section class="section">
+  <span class="cloud-title">Concepto</span>
+
+  <div class="concepto" onclick="showConcept()">
+    <img src="Potro.jfif">
+    <div class="bubble" id="conceptBubble">
+      El estrés es una respuesta psicofisiológica compleja ante demandas internas 
+      o externas que desafían la homeostasis. Involucra la interacción entre estructuras 
+      cerebrales, el sistema endocrino y redes de neurotransmisores. Puede ser adaptativo 
+      (agudo) o perjudicial (crónico).
+    </div>
+  </div>
+</section>
+
+
+<!-- ARTÍCULOS EN TARJETAS -->
+<section class="section">
+  <span class="cloud-title">Artículos Científicos</span>
+
+  <div class="flip-grid">
+
+    <div class="flip">
+      <div class="inner">
+        <div class="front">Herman et al. (2001)</div>
+        <div class="back">
+          Eje HPA: CRF → ACTH → Cortisol.  
+          Retroalimentación negativa en hipotálamo e hipófisis.
+        </div>
+      </div>
+    </div>
+
+    <div class="flip">
+      <div class="inner">
+        <div class="front">Joëls & Baram (2011)</div>
+        <div class="back">
+          Estrés agudo mejora memoria; estrés crónico deteriora funciones.
+        </div>
+      </div>
+    </div>
+
+    <div class="flip">
+      <div class="inner">
+        <div class="front">Aston-Jones et al. (2023)</div>
+        <div class="back">
+          El LC regula arousal, vigilancia y respuesta emocional mediante NA.
+        </div>
+      </div>
+    </div>
+
+    <div class="flip">
+      <div class="inner">
+        <div class="front">Kumar et al. (2023)</div>
+        <div class="back">
+          Estrés crónico altera metabolismo y genera neuroinflamación.
+        </div>
+      </div>
+    </div>
+
+    <div class="flip">
+      <div class="inner">
+        <div class="front">Patterson et al. (2024)</div>
+        <div class="back">
+          Microglía activa libera IL-6 y TNF-α → deterioro neuronal.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- NEUROTRANSMISORES -->
+<section class="section">
+  <span class="cloud-title">Neurotransmisores y Hormonas</span>
+
+  <details><summary>Noradrenalina</summary>
+    <p>Clave en vigilancia y alerta.</p>
+  </details>
+
+  <details><summary>Cortisol</summary>
+    <p>Hormona final del eje HPA; útil en corto plazo.</p>
+  </details>
+
+  <details><summary>Dopamina</summary>
+    <p>Relacionada con motivación; afectada por estrés crónico.</p>
+  </details>
+
+  <details><summary>Glutamato</summary>
+    <p>Excitatorio; excesos producen neurotoxicidad.</p>
+  </details>
+
+  <details><summary>GABA</summary>
+    <p>Inhibidor; disminuye en estrés crónico.</p>
+  </details>
+
+  <details><summary>CRF y ACTH</summary>
+    <p>Inician e impulsan el eje HPA.</p>
+  </details>
+</section>
+
+
+<!-- NEUROINFLAMACIÓN -->
+<section class="section">
+  <span class="cloud-title">Neuroinflamación y Estrés Crónico</span>
+
+  <details><summary>Microglía activada</summary>
+    <p>Promueve citocinas proinflamatorias.</p>
+  </details>
+
+  <details><summary>IL-6</summary>
+    <p>Aumenta inflamación sistémica y neuronal.</p>
+  </details>
+
+  <details><summary>TNF-α</summary>
+    <p>Aumenta inflamación y daño sináptico.</p>
+  </details>
+
+</section>
+
+
+<!-- VIDEOS -->
+<section class="section">
+  <span class="cloud-title">Videos recomendados</span>
+
+  <div class="videos">
+    <video src="estres1.mp4" controls></video>
+    <video src="estres2.mp4" controls></video>
+  </div>
+</section>
+
+
+<!-- CONCLUSIÓN -->
+<section class="section">
+  <span class="cloud-title">Conclusión</span>
+  <p>
+    El estrés involucra al eje HPA, sistema límbico, LC y neurotransmisores como 
+    noradrenalina, dopamina, serotonina, GABA y glutamato. El estrés agudo es adaptativo; 
+    el crónico produce neuroinflamación, alteraciones metabólicas y deterioro en la 
+    plasticidad neuronal.
+  </p>
+</section>
+
+
+<!-- REFERENCIAS -->
+<section class="section">
+  <span class="cloud-title">Referencias</span>
+  <ul>
+    <li>Herman et al. (2001). Endocrine Reviews.</li>
+    <li>Joëls & Baram (2011). Neuroscience & Biobehavioral Reviews.</li>
+    <li>Aston-Jones et al. (2023). European Journal of Neuroscience.</li>
+    <li>Kumar et al. (2023). Diseases (MDPI).</li>
+    <li>Patterson et al. (2024). Frontiers in Immunology.</li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+function showConcept(){
+  document.getElementById('conceptBubble').style.display='block';
+}
+</script>
+
+<!-- Botón flotante para volver arriba -->
+<button id="btnArriba"
+  style="
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    background:rgba(251,113,133,0.85);
+    color:white;
+    border:none;
+    padding:14px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:700;
+    backdrop-filter:blur(6px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.25);
+    display:none;
+    transition:all .3s;">
+  ⬆
+</button>
+
+<script>
+// Mostrar el botón cuando se baja la página
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("btnArriba");
+  if (window.scrollY > 250) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+});
+
+// Scroll suave al inicio
+document.getElementById("btnArriba").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+</script>
+
+</body>
+</html>

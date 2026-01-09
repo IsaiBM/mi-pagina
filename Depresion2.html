@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Neurobiología de la Depresión</title>
+
+<style>
+  /* Global */
+  body{
+    margin:0;
+    font-family:Inter,system-ui,Arial;
+    background:url("FondoDepresion.png") center/cover fixed;
+    color:#1e293b;
+  }
+  .container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  header{display:flex;justify-content:space-between;align-items:center}
+  .logo{
+    background:linear-gradient(135deg,#f43f5e,#fb923c);
+    width:50px;height:50px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700
+  }
+  h1{margin:0}
+  /* Card sections with transparency */
+  .section{
+    background:rgba(255,255,255,0.66);
+    padding:18px;border-radius:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    backdrop-filter:blur(5px);
+  }
+  .cloud-title{
+    display:inline-block;padding:6px 12px;border-radius:999px;
+    background:#fee2e2;font-weight:700;
+  }
+
+  /* Concept */
+  .concepto{display:flex;align-items:center;gap:14px;cursor:pointer}
+  .concepto img{
+    width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid #f43f5e;
+    background:#fff;
+  }
+  .bubble{
+    background:rgba(255,240,246,0.92);padding:12px;border-radius:12px;display:none;
+  }
+
+  /* Flip-cards (neurotransmisores) - behavior from example + styling rosado */
+  /* FIX: Flip cards sin encimarse */
+.flip-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:26px;            /* más separación */
+  justify-content:center;
+  margin-bottom:30px;  /* asegura espacio con la siguiente sección */
+}
+
+.flip{
+  perspective:1000px;
+  width:280px;         /* un poquito más anchas */
+  height:240px;        /* altura fija más grande para textos largos */
+  position:relative;
+  overflow:visible;    /* evita cortes */
+  z-index:0;
+}
+
+.inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform .6s;
+  transform-style:preserve-3d;
+}
+
+.flip:hover{
+  z-index:10;          /* la que gira queda arriba */
+}
+
+.flip:hover .inner{
+  transform:rotateY(180deg);
+}
+
+.front,.back{
+  position:absolute;
+  width:100%;height:100%;
+  backface-visibility:hidden;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  text-align:center;
+  line-height:1.3;
+  font-size:14px;
+
+  /* tu estilo rosado */
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(4px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.front{
+  background:rgba(254,202,202,0.95);
+  color:#6b0215;
+  font-weight:700;
+}
+
+.back{
+  background:rgba(252,165,165,0.95);
+  transform:rotateY(180deg);
+  color:#fff;
+  font-weight:600;
+}
+
+  /* Accordion details adjustments */
+  details{margin:10px 0;padding:10px;background:rgba(255,228,230,0.75);border-radius:10px}
+  summary{cursor:pointer;font-weight:700;font-size:15px;margin:6px 0}
+  details p{margin:8px 0 0 0;line-height:1.4}
+
+  /* Small lists and tables */
+  .grid-2{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;
+  }
+  .mini-card{
+    background:rgba(255,255,255,0.85);padding:12px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08)
+  }
+
+  /* Videos */
+  .videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  video{width:100%;height:200px;border-radius:12px;background:#000}
+
+  /* Small responsive tweaks */
+  @media (max-width:600px){
+    .concepto img{width:76px;height:76px}
+    .front,.back{font-size:13px}
+  }
+
+  /* Reference note */
+  .source{font-size:13px;color:#6b0215;margin-top:8px}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="logo">ND</div>
+      <div>
+        <h1>Neurobiología de la Depresión</h1>
+        <small>Interactivo y visual</small>
+      </div>
+    </div>
+    <a href="inicio2.html" style="color:#6b0215;text-decoration:none;font-weight:700">⬅ Menú</a>
+
+<a href="Depresion3.html" style="color:#6b0215;text-decoration:none;font-weight:700">Mas información</a>
+
+  </header>
+
+  <!-- Concepto -->
+  <section class="section" id="conceptSection">
+    <span class="cloud-title">Concepto</span>
+    <div style="margin-top:10px" class="concepto" onclick="showConcept()">
+      <img src="Potro.jfif" alt="concepto">
+      <div>
+        <div class="bubble" id="conceptBubble">
+          La depresión es un trastorno mental caracterizado por tristeza persistente, pérdida de interés,
+          alteraciones cognitivas y cambios en neurotransmisores, circuitos de recompensa y regiones corticales y subcorticales.
+        </div>
+        <p style="margin:8px 0 0 0;max-width:760px">
+          Aquí encontrarás un desglose interactivo de las estructuras implicadas, sus funciones normales,
+          cómo se alteran en el Trastorno Depresivo Mayor (TDM) y el impacto sintomático específico.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estructuras cerebrales (accordion con detalle por área) -->
+  <section class="section">
+    <span class="cloud-title">Estructuras cerebrales (desglose)</span>
+    <p style="margin-top:8px">Toca cada área para ver su función normal, alteraciones en TDM y el impacto sintomático.</p>
+
+    <!-- DLPFC -->
+    <details>
+      <summary>Corteza Prefrontal Dorsolateral (DLPFC)</summary>
+      <p><strong>Función normal:</strong> Funciones ejecutivas: planificación, memoria de trabajo, atención, flexibilidad cognitiva y resolución de problemas (el "director de orquesta" de la cognición).</p>
+      <p><strong>Alteración en TDM:</strong> Reducción de volumen de materia gris y disfunción.</p>
+      <p><strong>Impacto sintomático:</strong> Déficits cognitivos: dificultad para concentrarse, tomar decisiones, planificar el futuro y mantener la atención; contribuye a la falta de motivación (abulia).</p>
+    </details>
+
+    <!-- MFC -->
+    <details>
+      <summary>Corteza Frontal Medial (MFC)</summary>
+      <p><strong>Función normal:</strong> Regulación emocional, monitoreo del conflicto y procesamiento de la información relacionada con el "yo".</p>
+      <p><strong>Alteración en TDM:</strong> Afectación estructural o funcional.</p>
+      <p><strong>Impacto sintomático:</strong> Sesgo emocional negativo: rumiación (pensamiento repetitivo y negativo), apatía y problemas en el procesamiento de información afectiva.</p>
+    </details>
+
+    <!-- OFC -->
+    <details>
+      <summary>Corteza Orbitofrontal (OFC)</summary>
+      <p><strong>Función normal:</strong> Evaluación de recompensa, valor hedónico y aprendizaje por reversión (adaptación cuando cambian consecuencias).</p>
+      <p><strong>Alteración en TDM:</strong> Corteza más delgada o hipoactividad en ciertas áreas.</p>
+      <p><strong>Impacto sintomático:</strong> Anhedonia: incapacidad para experimentar placer; falla en asignar valor o recompensa a actividades → pérdida de interés y motivación intrínseca.</p>
+    </details>
+
+    <!-- Lóbulo Temporal, Hipocampo, Amígdala -->
+    <details>
+      <summary>Lóbulo Temporal (Hipocampo y Amígdala)</summary>
+      <p><strong>Función normal:</strong> Memoria explícita, consolidación, procesamiento emocional y detección de amenazas.</p>
+      <p><strong>Alteración en TDM:</strong> Atrofia del hipocampo (reducción de volumen); alteraciones volumétricas o hiperactividad en la amígdala.</p>
+      <p><strong>Impacto sintomático:</strong> Déficits de memoria (especialmente memoria episódica), confusión mental, ansiedad, hipervigilancia y rumiación emocional.</p>
+    </details>
+
+    <!-- Tálamo -->
+    <details>
+      <summary>Tálamo</summary>
+      <p><strong>Función normal:</strong> Estación de relevo sensorial y límbica hacia la corteza; nodo clave del circuito emocional (LCSPT).</p>
+      <p><strong>Alteración en TDM:</strong> Alteraciones o reducción de volumen (especialmente en el tálamo izquierdo).</p>
+      <p><strong>Impacto sintomático:</strong> Desregulación global: comunicación interrumpida entre corteza frontal y estructuras límbicas → inestabilidad del estado de ánimo y la cognición.</p>
+    </details>
+
+    <!-- Núcleo Accumbens -->
+    <details>
+      <summary>Núcleo Accumbens (Striatum)</summary>
+      <p><strong>Función normal:</strong> Regula recompensa y placer; parte central de la vía mesolímbica dopaminérgica.</p>
+      <p><strong>Alteración en TDM:</strong> Hipoactividad o reducción de volumen.</p>
+      <p><strong>Impacto sintomático:</strong> Anhedonia severa: incapacidad para sentir placer, pérdida de interés y motivación.</p>
+    </details>
+
+    <!-- Putamen -->
+    <details>
+      <summary>Putamen (Striatum)</summary>
+      <p><strong>Función normal:</strong> Control motor, coordinación, aprendizaje de hábitos y procedimientos.</p>
+      <p><strong>Alteración en TDM:</strong> Menor volumen bilateral y conectividad alterada.</p>
+      <p><strong>Impacto sintomático:</strong> Enlentecimiento psicomotor: movimientos, habla y pensamiento más lentos; reforzamiento de apatía y falta de energía.</p>
+    </details>
+
+    </section>
+
+  <!-- Conectividad y circuitos -->
+  <section class="section">
+    <span class="cloud-title">Conectividad y circuitos neuronales</span>
+    <div style="margin-top:8px">
+      <p><strong>Circuito Frontal-Subcortical (LCSPT):</strong> Interconecta corteza frontal (regulación cognitiva) con límbico y estriado; la disrupción de la materia blanca entre DLPFC, tálamo y cuerpo estriado impide la regulación de las respuestas emocionales negativas.</p>
+
+      <p><strong>Circuito de Recompensa:</strong> Núcleo accumbens ↔ Vía Tegmental Ventral (VTA) ↔ OFC. Hipoactividad en este circuito causa anhedonia y apatía.</p>
+
+      <p><strong>Circuito hipotetizado asociado a ideación suicida:</strong> Involucra ACC (control emocional/afectivo) y VLPFC (regulación conductual). Disfunción extrema en estas redes, junto con sesgo negativo de la amígdala, puede reducir la capacidad de generar planes de afrontamiento y aumentar desesperanza.</p>
+    </div>
+  </section>
+
+  <!-- Neurotransmisores (flip-cards) -->
+  <section class="section">
+    <span class="cloud-title">Neurotransmisores / Moléculas y fármacos</span>
+    <p style="margin-top:8px">Explora los neurotransmisores y sus implicaciones en el TDM.</p>
+
+    <div class="flip-grid" style="margin-top:12px">
+      <!-- Serotonina -->
+      <div class="flip">
+        <div class="inner">
+          <div class="front">Serotonina (5-HT)</div>
+          <div class="back">
+            Regulación del ánimo, sueño, apetito y control de impulsos. En depresión suele haber niveles bajos; síntomas: disforia, ansiedad, alteraciones del sueño y apetito, ideación suicida. Fármacos: ISRS (Fluoxetina, Sertralina).
+          </div>
+        </div>
+      </div>
+
+      <!-- Norepinefrina -->
+      <div class="flip">
+        <div class="inner">
+          <div class="front">Norepinefrina (NE)</div>
+          <div class="back">
+            Alerta, energía, motivación y atención. Deficiencia → fatiga, falta de energía y enlentecimiento psicomotor. Fármacos: IRSN (Venlafaxina, Duloxetina).
+          </div>
+        </div>
+      </div>
+
+      <!-- Dopamina -->
+      <div class="flip">
+        <div class="inner">
+          <div class="front">Dopamina (DA)</div>
+          <div class="back">
+            Recompensa, placer y motivación. Hipoactividad mesolímbica → anhedonia y apatía. Fármaco: Bupropión (actúa sobre DA y NE).
+          </div>
+        </div>
+      </div>
+
+      <!-- Glutamato -->
+      <div class="flip">
+        <div class="inner">
+          <div class="front">Glutamato</div>
+          <div class="back">
+            Principal neurotransmisor excitatorio; crucial para plasticidad sináptica. Su desregulación (hiperfunción) puede causar neurotoxicidad y contribuir a atrofia (hipocampo). Terapias: Ketamina/antagonistas NMDA en depresión resistente.
+          </div>
+        </div>
+      </div>
+
+      <!-- BDNF -->
+      <div class="flip">
+        <div class="inner">
+          <div class="front">BDNF</div>
+          <div class="back">
+            Factor neurotrófico: favorece neurogénesis, supervivencia y plasticidad. Niveles bajos están asociados a estrés crónico y atrofia hipocampal. Aumento de BDNF es efecto común en antidepresivos efectivos.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fármacos resumen -->
+    <div style="margin-top:16px" class="grid-2">
+      <div class="mini-card">
+        <strong>ISRS</strong><br>Ej: Fluoxetina, Sertralina — objetivo: aumentar 5-HT.
+      </div>
+      <div class="mini-card">
+        <strong>IRSN</strong><br>Ej: Venlafaxina, Duloxetina — actúan sobre NE y 5-HT.
+      </div>
+      <div class="mini-card">
+        <strong>Bupropión</strong><br>Actúa sobre recaptación DA/NE — útil para anhedonia/fatiga.
+      </div>
+      <div class="mini-card">
+        <strong>Ketamina</strong><br>Antagonista NMDA — actúa sobre glutamato, útil en depresión resistente.
+      </div>
+    </div>
+
+    </section>
+
+  <!-- Impacto funcional / síntesis -->
+  <section class="section">
+    <span class="cloud-title">Impacto funcional y síntesis</span>
+    <p style="margin-top:8px">
+      La depresión emerge de la interacción entre alteraciones estructurales (atrofia/hiperactividad), fallos de conectividad
+      (materia blanca LCSPT), y desequilibrios en neurotransmisores y factores neurotróficos (ej. BDNF). Clínicamente se manifiesta
+      como anhedonia, rumiación, déficits ejecutivos, enlentecimiento psicomotor, ansiedad comórbida y mayor riesgo suicida en casos
+      de disfunción severa de redes de control afectivo. (Contenido extraído y adaptado del documento fuente). :contentReference[oaicite:3]{index=3}
+    </p>
+  </section>
+
+  <!-- Videos -->
+  <section class="section">
+    <span class="cloud-title">Videos recomendados</span>
+    <div class="videos" style="margin-top:10px">
+      <video src="depresion1.mp4" controls></video>
+      <video src="depresion2.mp4" controls></video>
+    </div>
+  </section>
+
+</div>
+
+<!-- Sección Profesional de Referencias Bibliográficas -->
+<section class="section" id="referencias">
+  <span class="cloud-title">Referencias bibliográficas</span>
+
+  <p style="margin-top:8px">
+    A continuación se presentan las referencias académicas organizadas por categorías,
+    correspondientes a los estudios que sustentan los mecanismos neurobiológicos,
+    alteraciones estructurales, redes funcionales y farmacoterapia involucrada en el Trastorno Depresivo Mayor.
+  </p>
+
+  <h3 style="margin-top:16px;color:#9f1239">1. Neurobiología general</h3>
+  <ul>
+    <li>Drevets, W. C., Price, J. L., & Furey, M. L. (2008). <i>Brain structural and functional abnormalities in mood disorders.</i> Brain Structure and Function, 213, 93–118.</li>
+    <li>Krishnan, V., & Nestler, E. J. (2010). <i>Linking molecules to mood: New insights into the biology of depression.</i> American Journal of Psychiatry, 167, 1305–1320.</li>
+  </ul>
+
+  <h3 style="margin-top:16px;color:#9f1239">2. Hipocampo, estrés y atrofia</h3>
+  <ul>
+    <li>McEwen, B. S. (2007). <i>Physiology and neurobiology of stress and adaptation.</i> Physiological Reviews, 87, 873–904.</li>
+    <li>Sapolsky, R. M. (2001). <i>Depression, antidepressants, and the shrinking hippocampus.</i> Proceedings of the National Academy of Sciences, 98, 12320–12322.</li>
+  </ul>
+
+  <h3 style="margin-top:16px;color:#9f1239">3. Amígdala y procesamiento emocional</h3>
+  <ul>
+    <li>Hamilton, J. P., Etkin, A., Furman, D. J., Lemus, M. G., Johnson, R. F., & Gotlib, I. H. (2012). <i>Functional neuroimaging of major depressive disorder.</i> American Journal of Psychiatry, 169, 693–703.</li>
+  </ul>
+
+  <h3 style="margin-top:16px;color:#9f1239">4. Conectividad y circuitos neuronales</h3>
+  <ul>
+    <li>Treadway, M. T., & Zald, D. H. (2011). <i>Reconsidering anhedonia in depression.</i> Neuroscience & Biobehavioral Reviews, 35, 537–555.</li>
+    <li>Drysdale, A. T., Grosenick, L., Downar, J., et al. (2017). <i>Resting-state connectivity biomarkers define neurophysiological subtypes of depression.</i> Nature Medicine, 23, 28–38.</li>
+    <li>van Heeringen, K., & Mann, J. J. (2014). <i>The neurobiology of suicide.</i> The Lancet Psychiatry, 1, 63–72.</li>
+  </ul>
+
+  <h3 style="margin-top:16px;color:#9f1239">5. Neurotransmisores</h3>
+  <ul>
+    <li>Nestler, E. J., & Hyman, S. (2010). <i>Animal models of neuropsychiatric disorders.</i> Nature Neuroscience, 13, 1161–1169.</li>
+    <li>Hasler, G. (2010). <i>Pathophysiology of depression.</i> World Psychiatry, 9, 155–161.</li>
+  </ul>
+
+  <h3 style="margin-top:16px;color:#9f1239">6. BDNF y neuroplasticidad</h3>
+  <ul>
+    <li>Sen, S., Duman, R., & Sanacora, G. (2008). <i>Serum brain-derived neurotrophic factor, depression, and antidepressant medications.</i> Biological Psychiatry, 64, 527–532.</li>
+    <li>Autry, A. E., & Monteggia, L. M. (2012). <i>Brain-derived neurotrophic factor and neuropsychiatric disorders.</i> Pharmacological Reviews, 64, 238–258.</li>
+  </ul>
+
+  <h3 style="margin-top:16px;color:#9f1239">7. Fármacos antidepresivos</h3>
+  <ul>
+    <li>Cipriani, A., Furukawa, T. A., Salanti, G., et al. (2018). <i>Comparative efficacy and acceptability of 21 antidepressant drugs.</i> The Lancet, 391, 1357–1366.</li>
+    <li>Machado-Vieira, R., Salvadore, G., Diaz-Granados, N., & Zarate Jr., C. A. (2009). <i>Ketamine and the next generation of rapid-acting antidepressants.</i> Pharmacology & Therapeutics, 123, 143–150.</li>
+  </ul>
+
+</section>
+
+<!-- Scripts -->
+<script>
+  function showConcept(){
+    document.getElementById('conceptBubble').style.display = 'block';
+  }
+
+  // pequeño ajuste: cerrar otros detalles al abrir uno (mejora UX)
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) {
+        document.querySelectorAll('details').forEach(o => { if (o !== d) o.open = false; });
+      }
+    });
+  });
+</script>
+
+<!-- Botón flotante para volver arriba -->
+<button id="btnArriba"
+  style="
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    background:rgba(251,113,133,0.85);
+    color:white;
+    border:none;
+    padding:14px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:700;
+    backdrop-filter:blur(6px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.25);
+    display:none;
+    transition:all .3s;">
+  ⬆
+</button>
+
+<script>
+// Mostrar el botón cuando se baja la página
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("btnArriba");
+  if (window.scrollY > 250) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+});
+
+// Scroll suave al inicio
+document.getElementById("btnArriba").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+</script>
+
+</body>
+</html>

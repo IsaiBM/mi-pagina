@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Neurobiología de la Ansiedad</title>
+
+<style>
+  /* Base y fondo (mantenemos FondoAnsiedad.png) */
+  :root{
+    --accent-dark: #1e293b; /* color texto oscuro */
+    --brand: #0f766e;
+    --card-bg: rgba(255,255,255,0.78);
+    --glass: rgba(255,255,255,0.66);
+  }
+
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial,Helvetica;background:
+    linear-gradient(rgba(255,255,255,0.60),rgba(255,255,255,0.60)),
+    url("FondoAnsiedad.png") center/cover fixed no-repeat;color:var(--accent-dark);}
+
+  .container{
+    max-width:1130px;
+    margin:24px auto;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+
+  .logo{
+    background:linear-gradient(135deg,#1c3faa,#0f766e);
+    width:56px;height:56px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;
+    box-shadow:0 6px 18px rgba(12,40,80,0.12);
+  }
+
+  h1{margin:0;font-size:1.6rem}
+  small{color:rgba(30,41,59,0.7)}
+
+  a.menu-btn{
+    color:white;
+    background:var(--brand);
+    padding:10px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    box-shadow:0 6px 16px rgba(15,118,110,0.18);
+  }
+
+  /* Card / section */
+  .section{
+    background:var(--card-bg);
+    padding:18px;border-radius:14px;
+    box-shadow:0 8px 26px rgba(12,20,40,0.10);
+    backdrop-filter: blur(6px);
+  }
+
+  .cloud-title{
+    display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(225,245,255,0.9);font-weight:800;
+    color:var(--accent-dark);
+  }
+
+  /* Concept block with potro guide */
+  .concepto{
+    display:flex;align-items:center;gap:14px;margin-top:10px;
+  }
+  .concepto img{
+    width:96px;height:96px;border-radius:12px;object-fit:cover;border:3px solid var(--brand);
+    background:#fff;
+  }
+  .bubble{
+    background:rgba(240,250,255,0.9);padding:12px;border-radius:12px;display:none;max-width:820px;
+    box-shadow:0 8px 20px rgba(15,118,110,0.06);
+  }
+
+  /* Accordion details */
+  details{margin:10px 0;padding:10px;background:rgba(255,255,255,0.9);border-radius:10px}
+  summary{cursor:pointer;font-weight:800;font-size:15px;margin:6px 0;color:var(--accent-dark)}
+  details p{margin:8px 0 0 0;line-height:1.45;color:rgba(30,41,59,0.9)}
+
+  /* Flip-cards (neurotransmisores) - reduced size */
+  .flip-grid{
+    display:flex;flex-wrap:wrap;gap:20;justify-content:center;
+  }
+
+.flip{
+  perspective:1000px;
+  flex:1;
+  min-width:240px;
+  max-width:280px;
+  height:200px;
+  position:relative;
+}
+
+.inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform .6s;
+  transform-style:preserve-3d;
+}
+
+.flip:hover .inner{
+  transform:rotateY(180deg);
+}
+
+.front, .back{
+  position:absolute;
+  width:100%;height:100%;
+  backface-visibility:hidden;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;
+  font-size:15px;line-height:1.4;
+
+  /* transparencia */
+  background:rgba(255,255,255,0.55);
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  backdrop-filter:blur(4px);
+}
+
+/* Frente azul pastel */
+.front{
+  background:rgba(137, 183, 255, 0.75);  /* azul rey claro */
+  color:#0a1b38;                      /* azul muy oscuro */
+  font-weight:700;
+}
+
+/* Reverso azul rey profundo */
+.back{
+  background:rgba(103, 155, 240, 0.80);    /* azul rey intenso */
+  color:white;
+  transform:rotateY(180deg);
+}
+
+  /* detalles */
+  details{
+    margin:8px 0;padding:8px;
+    background:rgba(173, 209, 255, 0.45);
+    border-radius:10px;
+    backdrop-filter:blur(3px);
+  }
+
+  summary{cursor:pointer;font-weight:600}
+
+
+  /* Gallery */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
+  .gallery img{width:100%;height:220px;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(10,20,40,0.08)}
+
+  /* Videos reduced */
+  .videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;align-items:center}
+  .videos video{width:100%;height:180px;border-radius:10px;background:#000;box-shadow:0 8px 22px rgba(0,0,0,0.12)}
+
+  /* Referencias */
+  #referencias ul{margin:8px 0 0 18px}
+  #referencias li{margin:6px 0;color:rgba(30,41,59,0.92);font-size:0.96rem}
+
+  /* Misc */
+  .small-note{font-size:0.95rem;color:rgba(30,41,59,0.85)}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:880px){.two-col{grid-template-columns:1fr}}
+  @media (max-width:600px){.concepto img{width:72px;height:72px}.flip{width:100%;height:140px}.gallery img{height:160px}.videos video{height:160px}}
+  
+  /* Floating up button */
+  #btnArriba{
+    position:fixed;bottom:22px;right:22px;background:rgba(28,63,170,0.85);color:white;border:none;padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:800;display:none;box-shadow:0 8px 22px rgba(0,0,0,0.22);
+  }
+
+/* ZOOM — Overlay */
+.zoom-overlay{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.65);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.zoom-overlay img{
+  max-width:92%;
+  max-height:92%;
+  border-radius:14px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.35);
+}
+
+
+</style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="logo">NA</div>
+        <div>
+          <h1>Neurobiología de la Ansiedad</h1>
+          <small>Interactivo — base neuroanatómica y neuroquímica</small>
+        </div>
+      </div>
+
+      <a class="menu-btn" href="inicio2.html">⬅ Menú</a>
+      <a class="menu-btn" href="Ansiedad3.html"> Mas Información</a>
+    </header>
+
+    <!-- Concepto / guía (potro) -->
+    <section class="section">
+      <span class="cloud-title">Concepto</span>
+
+      <div class="concepto" style="margin-top:10px">
+        <img src="Potro.jfif" alt="Guía (potro)">
+        <div>
+          <div class="bubble" id="conceptBubble">
+            La ansiedad implica hiperactivación límbica (amígdala, ínsula), fallo en el control prefrontal, alteración de la inhibición GABAérgica y aumento de la actividad noradrenérgica y glutamatérgica.
+            El eje HPA (CRH–ACTH–cortisol) contribuye a la cronificación y genes como FKBP5 y variantes en BDNF/TrkB modulan la vulnerabilidad.
+          </div>
+
+          <p class="small-note">Pulsa la imagen del potro para ver un resumen breve. A continuación encontrarás secciones interactivas con estructuras, neurotransmisores, circuitos y videos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estructuras cerebrales (accordion con detalle por área) -->
+    <section class="section">
+      <span class="cloud-title">Estructuras cerebrales (desglose)</span>
+      <p style="margin-top:8px" class="small-note">Toca cada área para ver su función normal y cómo se altera en la ansiedad.</p>
+
+      <details>
+        <summary>Amígdala</summary>
+        <p><strong>Función:</strong> Detección y respuesta ante amenazas; procesamiento de miedo y memoria emocional.</p>
+        <p><strong>Alteración en ansiedad:</strong> Hiperactividad, mayor reactividad ante estímulos amenazantes y conectividad reducida con PFC.</p>
+        <p><strong>Neuroquímica:</strong> GABA ↓, Glutamato ↑, 5-HT disfuncional, NE ↑.</p>
+      </details>
+
+      <details>
+        <summary>Hipocampo</summary>
+        <p><strong>Función:</strong> Memoria contextual y regulación del eje HPA.</p>
+        <p><strong>Alteración en ansiedad:</strong> Volumen reducido en ansiedad crónica, neurogénesis disminuida y vulnerabilidad al cortisol.</p>
+        <p><strong>Neuroquímica:</strong> BDNF ↓, Glutamato ↑.</p>
+      </details>
+
+      <details>
+        <summary>Ínsula</summary>
+        <p><strong>Función:</strong> Interocepción, sensación corporal y consciencia emocional.</p>
+        <p><strong>Alteración en ansiedad:</strong> Hiperreactividad y mayor sensibilidad interoceptiva; conexión aumentada con amígdala y ACC.</p>
+        <p><strong>Neuroquímica:</strong> Serotonina alterada, dopamina disfuncional.</p>
+      </details>
+
+      <details>
+        <summary>Corteza prefrontal (vmPFC / dlPFC)</summary>
+        <p><strong>Función:</strong> Regulación emocional, extinción del miedo y control ejecutivo.</p>
+        <p><strong>Alteración en ansiedad:</strong> Hipofrontalidad (disminución de control sobre la amígdala) y fallo en la extinción de respuestas de miedo.</p>
+        <p><strong>Neuroquímica:</strong> GABA ↓, alteración en 5-HT y conectividad fronto-límbica disminuida.</p>
+      </details>
+
+      <details>
+        <summary>Cíngulo anterior (ACC)</summary>
+        <p><strong>Función:</strong> Evaluación del conflicto, anticipación y regulación autonómica.</p>
+        <p><strong>Alteración en ansiedad:</strong> Mayor actividad en anticipación y cambios en conectividad con amígdala y PFC.</p>
+      </details>
+
+      <details>
+        <summary>Tálamo</summary>
+        <p><strong>Función:</strong> Relé sensorial que filtra y transmite información hacia la corteza y estructuras límbicas.</p>
+        <p><strong>Alteración en ansiedad:</strong> Hiperactividad en respuesta a estímulos amenazantes; modula la sobrecarga sensorial.</p>
+      </details>
+
+      <details>
+        <summary>Locus Coeruleus (LC) & Tronco</summary>
+        <p><strong>Función:</strong> Principal fuente noradrenérgica: regula alerta y vigilancia.</p>
+        <p><strong>Alteración en ansiedad/pánico:</strong> Hiperactividad → NE ↑ → hipervigilancia, taquicardia y respuestas autonómicas.</p>
+      </details>
+
+      <details>
+        <summary>Núcleos del rafe (serotoninérgicos)</summary>
+        <p><strong>Función:</strong> Principal fuente de serotonina hacia córtex, amígdala e hipocampo.</p>
+        <p><strong>Alteración en ansiedad:</strong> Disfunciones en 5-HT que afectan la inhibición amígdala-PFC y la estabilidad emocional.</p>
+      </details>
+
+    </section>
+
+    <!-- Neurotransmisores (flip-cards reducidas) -->
+    <section class="section">
+      <span class="cloud-title">Neuroquímica clave</span>
+      <p class="small-note" style="margin-top:8px">Pulsa cada tarjeta para ver una descripción breve.</p>
+
+      <div class="flip-grid">
+        <div class="flip" title="Serotonina">
+          <div class="inner">
+            <div class="front">Serotonina (5-HT)</div>
+            <div class="back">Modula ánimo, sueño y control de impulsos. Desequilibrios (SLC6A4, HTR2A) ligados a vulnerabilidad; ISRS regulan parcialmente síntomas.</div>
+          </div>
+        </div>
+
+        <div class="flip" title="GABA">
+          <div class="inner">
+            <div class="front">GABA</div>
+            <div class="back">Principal inhibidor. Desregulación GABA-A y déficit de GAD1 incrementan excitabilidad y ansiedad; bloqueo GABAérgico revierte efectos ansiolíticos naturales (evidencia IJMS 2025).</div>
+          </div>
+        </div>
+
+        <div class="flip" title="Noradrenalina">
+          <div class="inner">
+            <div class="front">Noradrenalina (NE)</div>
+            <div class="back">Aumenta vigilancia y respuestas autonómicas. Hiperactividad LC asociada a pánico y estados de hipervigilancia.</div>
+          </div>
+        </div>
+
+        <div class="flip" title="Dopamina">
+          <div class="inner">
+            <div class="front">Dopamina (DA)</div>
+            <div class="back">Involucrada en motivación/anticipación y redes de recompensa; interacción con 5-HT y GABA altera la respuesta al estrés (IJMS 2025).</div>
+          </div>
+        </div>
+
+        <div class="flip" title="Glutamato / BDNF">
+          <div class="inner">
+            <div class="front">Glutamato / BDNF</div>
+            <div class="back">Aumento glutamatérgico con disfunción GABAérgica rompe homeostasis excitación-inhibición; BDNF/TrkB polimorfismos asociados a mayor ansiedad y menor respuesta a tratamientos.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Circuitos -->
+    <section class="section">
+      <span class="cloud-title">Circuitos y conectividad</span>
+      <div style="margin-top:8px" class="two-col">
+        <div>
+          <h3 style="margin:6px 0">Circuito miedo y ansiedad</h3>
+          <p class="small-note">Amígdala ↔ Ínsula ↔ ACC ↔ vmPFC: Procesan amenaza, interocepción y regulación. Fallo del control prefrontal = respuestas exageradas.</p>
+        </div>
+        <div>
+          <h3 style="margin:6px 0">Circuito monoaminérgico / HPA</h3>
+          <p class="small-note">LC (NE), núcleos del rafe (5-HT), VTA (DA) y eje HPA (CRH–ACTH–cortisol). Aumento sostenido del eje HPA observado en estudios recientes (IJMS 2025) con influencia de FKBP5 y otros marcadores epigenéticos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería de imágenes -->
+    <section class="section">
+      <span class="cloud-title">Galería (Ansiedad)</span>
+      <div class="gallery" aria-label="Galería de imágenes de ansiedad">
+<img class="zoom-img" src="CerebroAnsiedad2.png" alt="Cerebro 1 — Ansiedad">
+<img class="zoom-img" src="Cerebro1Ansiedad2.png" alt="Cerebro 2 — Ansiedad">
+<img class="zoom-img" src="Cerebro2Ansiedad2.png" alt="Cerebro 3 — Ansiedad">
+<img class="zoom-img" src="Cerebro3Ansiedad2.png" alt="Cerebro 4 — Ansiedad">
+<img class="zoom-img" src="Cerebro4Ansiedad2.png" alt="Cerebro 5 — Ansiedad">
+<img class="zoom-img" src="Cerebro5Ansiedad2.png" alt="Cerebro 6 — Ansiedad">
+      </div>
+      <p class="small-note" style="margin-top:8px">Imágenes: vistas y esquemas relacionados con circuitos límbicos y rutas monoaminérgicas.</p>
+    </section>
+
+    <!-- Videos reducidos -->
+    <section class="section">
+      <span class="cloud-title">Videos explicativos</span>
+      <div class="videos">
+        <video src="Ansiedad1.mp4" controls></video>
+        <video src="Ansiedad2.mp4" controls></video>
+      </div>
+      <p class="small-note" style="margin-top:8px">Videos: explicaciones y resúmenes visuales. Tamaño y proporciones optimizadas para la página.</p>
+    </section>
+
+    <!-- Síntesis final -->
+    <section class="section">
+      <span class="cloud-title">Impacto funcional y síntesis</span>
+      <p style="margin-top:8px">La ansiedad surge de interacción entre hiperactividad límbica, fallo del control prefrontal, desequilibrios en sistemas inhibitorios/excitatorios (GABA/Glutamato) y disfunción de monoaminas. La activación sostenida del eje HPA y factores genéticos/epigenéticos (p. ej. FKBP5, BDNF/TrkB) incrementan la vulnerabilidad y la cronicidad.</p>
+    </section>
+
+    <!-- Referencias (2024-2025 IJMS y Neurocircuitería) -->
+    <section class="section" id="referencias">
+      <span class="cloud-title">Referencias — Ansiedad (selección)</span>
+
+      <ul style="margin-top:10px">
+        <li>IJMS (2025): Desregulación GABA-A; déficit de GAD1; bloqueo GABAérgico revierte ansiolíticos naturales.</li>
+        <li>IJMS (2025): Desequilibrio de 5-HT asociado a vulnerabilidad genética (SLC6A4, HTR2A); los ISRS regulan parcialmente la ansiedad.</li>
+        <li>IJMS (2025): DA alterada en redes de recompensa y estrés; interacción con serotonina y GABA.</li>
+        <li>Neurocircuitería (2025): Hiperactividad del locus coeruleus y tronco encefálico en pánico; NE acopla respuestas autonómicas.</li>
+        <li>IJMS (2025): Aumento sostenido de CRH–ACTH–cortisol; influencia de FKBP5 y NTRK3; evidencia epigenética de disfunción.</li>
+        <li>IJMS (2025): Incremento glutamatérgico asociado a disfunción GABAérgica; alteración de la homeostasis excitación-inhibición.</li>
+        <li>IJMS (2025): Polimorfismos BDNF/TrkB asociados a mayor ansiedad y menor respuesta a antidepresivos.</li>
+        <li>IJMS (2025): CRH y AVP sobreactivan el HPA; oxitocina reduce ansiedad y cortisol en situaciones sociales.</li>
+        <li>IJMS (2025): Moduladores CB1/CB2 promueven efecto ansiolítico; interacción con serotonina y GABA.</li>
+      </ul>
+    </section>
+
+  </div> <!-- container -->
+
+  <!-- Scripts -->
+  <script>
+    // Mostrar burbuja del guía (potro)
+    function showConcept(){
+      const b = document.getElementById('conceptBubble');
+      if(!b) return;
+      b.style.display = b.style.display === 'block' ? 'none' : 'block';
+    }
+    document.querySelectorAll('.concepto img').forEach(img => img.addEventListener('click', showConcept));
+    // Cerrar otros details al abrir uno (mejora UX)
+    document.querySelectorAll('details').forEach(d => {
+      d.addEventListener('toggle', () => {
+        if (d.open) {
+          document.querySelectorAll('details').forEach(o => { if (o !== d) o.open = false; });
+        }
+      });
+    });
+
+    // Botón subir (aparece en scroll)
+    const btn = document.createElement('button');
+    btn.id = 'btnArriba';
+    btn.innerText = '⬆';
+    document.body.appendChild(btn);
+    window.addEventListener('scroll', () => {
+      const b = document.getElementById('btnArriba');
+      if (window.scrollY > 300) b.style.display = 'block'; else b.style.display = 'none';
+    });
+    document.getElementById('btnArriba').addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+</script>
+
+<div class="zoom-overlay" id="zoomOverlay">
+  <img id="zoomImg">
+</div>
+<script>
+const overlay = document.getElementById('zoomOverlay');
+const zoomImg = document.getElementById('zoomImg');
+
+document.querySelectorAll('.zoom-img').forEach(img =>{
+  img.style.cursor = 'zoom-in';
+  img.addEventListener('click', ()=>{
+    zoomImg.src = img.src;
+    overlay.style.display = 'flex';
+  });
+});
+
+overlay.addEventListener('click', ()=>{
+  overlay.style.display = 'none';
+});
+</script>
+
+
+</body>
+</html>
